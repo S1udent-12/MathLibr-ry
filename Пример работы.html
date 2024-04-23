@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Калькулятор</title>
+																		<!-- CSS для элементов HTML / CSS for HTML elements -->
+			<style>
+    body {
+      font-family: Arial, sans-serif; 						<!-- Устанавливает шрифт для всей страницы / Sets the font for the entire page -->
+    }
+
+    .container {
+      width: 300px; 										<!-- Задает ширину контейнера / Sets the width of the container -->
+      margin: 0 auto; 										<!-- Центрирует контейнер по горизонтали / Centers the container horizontally-->
+      padding: 20px; 										<!-- Добавляет внутренний отступ / Adds an internal indentation -->
+      border: 1px solid #ccc; 								<!-- Добавляет рамку / Adds a frame -->
+    }
+ 
+    form {
+      display: flex; 										<!-- Использует flexbox для выравнивания элементов / Uses flexbox to align elements -->
+      flex-direction: column; 								<!-- Отображает элементы в столбце / Displays the items in the column -->
+      align-items: center; 									<!-- Центрирует элементы по горизонтали / Centers the elements horizontally-->
+    }
+
+    label {
+      margin-right: 10px; 									<!-- Добавляет отступ справа / Adds an indentation on the right -->
+    }
+
+    input {
+      width: 100px; 										<!-- Задаёт ширину поля ввода / Sets the width of the input field -->
+      padding: 5px; 										<!-- Добавляет внутренний отступ / Adds an internal indentation -->
+      margin-right: 10px; 									<!-- Добавляет отступ справа / Adds an indentation on the right -->
+    }
+
+    button {
+      width: 100px; 										<!-- Задает ширину кнопки / Sets the width of the button -->
+      padding: 5px; 										<!-- Добавляет внутренний отступ / Adds an internal indentation -->
+      margin-top: 10px; 									<!-- Добавляет отступ сверху / Adds an indentation at the top -->
+      background-color: #000; 								<!-- Задает цвет фона / Sets the background color -->
+      color: #fff; 											<!-- Задает цвет текста / Sets the color of the text-->
+      border: none; 										<!-- Убираем границу / Removes the border -->
+    }
+
+    .result {
+      font-size: 1.5rem;									<!-- Устанавливает размер текста -->
+      margin-top: 10px;										<!-- Добавляет отступ сверху -->
+    }
+			</style>	
+  <script>
+const mathLibrary = new MathLibrary();						// Создание объекта MathLibrary / Creating a MathLibrary object
+const trigonometryFunctions = new TrigonometryFunctions();	// Создание объекта TrigonometryFunctions / Creating a TrigonometryFunctions object
+
+const calculator = document.getElementById('calculator');	// Получение элемента с идентификатором "calculator" / Getting an item with the ID "calculator"
+const result = document.querySelector('.result');			// Получение первого элемента с классом "result" / Getting the first element with the "result" class
+
+calculator.addEventListener('submit', (e) => {				// Добавление обработчика события "submit" для формы / Adding a "submit" event handler for the form
+  e.preventDefault();										// Отмена стандартного поведения формы / Canceling the standard behavior of the form
+
+  const num1 = Number(document.getElementById('num1').value);	// Получение значения из первого поля ввода
+  const num2 = Number(document.getElementById('num2').value);	// Получение значения из второго поля ввода
+  const operation = document.getElementById('operation').value;	// Получение выбранной операции из списка
+
+  let output;												// Объявление переменной для результата вычислений
+
+  switch (operation) {										// Выбор операции в зависимости от выбранного значения
+    case 'add':
+      output = mathLibrary.add(num1, num2);					// Сложение
+      break;
+    case 'subtract':
+      output = mathLibrary.subtract(num1, num2);			// Вычитание
+      break;
+    case 'multiply':
+      output = mathLibrary.multiply(num1, num2);			// Умножение
+      break;
+    case 'divide':
+      output = mathLibrary.divide(num1, num2);				// Деление
+      break;
+    case 'square-root':
+      output = mathLibrary.squareRoot(num1);				// Квадратный корень
+      break;
+    case 'power':
+      output = mathLibrary.power(num1, num2);				// Возведение в степень
+      break;
+    case 'sin':
+      output = trigonometryFunctions.sin(num1); 			// Синус
+      break;
+    case 'cos':
+      output = trigonometryFunctions.cos(num1); 			// Косинус
+      break;
+    case 'tan':
+      output = trigonometryFunctions.tan(num1); 			// Тангенс
+      break;
+  }
+
+  document.getElementById('output').textContent = output; 	// Установка результата в элемент с идентификатором "output"
+});
+
+  </script>
+
+</head>
+	<body>
+		<div class="container">
+			<h1>Калькулятор</h1>
+			<form id="calculator">							<!-- Форма калькулятора -->
+				<label for="num1">Первое число:</label>		<!-- Поле для ввода первого числа -->
+				<input type="number" id="num1">
+
+				<label for="num2">Второе число:</label>		<!-- [ Поле ввода 2 числа / ] -->
+				<input type="number" id="num2">
+				<label for="operation">Операция:</label> 	<!-- [ Выбор действия / Choosing an action] -->
+		
+			<select id="operation"> 						<!-- [ Список действий / List of actions ] -->
+			  <option value="add">Сложение</option>
+			  <option value="subtract">Вычитание</option>
+			  <option value="multiply">Умножение</option>
+			  <option value="divide">Деление</option>
+			  <option value="square-root">Квадратный корень</option>
+			  <option value="power">Возведение в степень</option>
+			  <option value="sin">Синус</option>
+			  <option value="cos">Косинус</option>
+			  <option value="tan">Тангенс</option>
+			</select>
+
+			<button type="submit">Вычислить</button> 		<!-- [ Кнопка для получения ответа / The button for getting a response] -->
+		</form>
+
+		<div class="result"> 								<!-- [ Результат / Result ] -->
+			Результат: 
+			<span id="output"></span>
+		</div>
+	</body>
+</html>
